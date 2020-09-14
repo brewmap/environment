@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Run tests
-        run: docker buiild --file ./PHP-ALPINE/Dockerfile --build-arg COMPOSER_VERSION=$COMPOSER_VERSION
+        run: docker buiild --file ./php-alpine/Dockerfile --build-arg COMPOSER_VERSION=$COMPOSER_VERSION
 
   push:
     needs: test
@@ -36,7 +36,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build image
-        run: docker build . --file ./PHP-ALPINE/Dockerfile  --tag $IMAGE_NAME
+        run: docker build . --file ./php-alpine/Dockerfile  --tag $IMAGE_NAME
 
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.SECRET_TOKEN }}" | docker login docker.pkg.github.com  -u ${{ github.actor }} --password-stdin
@@ -56,3 +56,4 @@ jobs:
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
         
+          
