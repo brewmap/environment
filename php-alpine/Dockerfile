@@ -1,4 +1,4 @@
-FROM php:7.4.9-fpm-alpine
+FROM php:7.4.10-fpm-alpine
 
 RUN apk update && apk upgrade \ 
     && apk add --no-cache php7-pear php7-dev gcc musl-dev make icu-dev
