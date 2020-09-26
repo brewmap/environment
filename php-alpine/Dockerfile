@@ -1,15 +1,16 @@
 FROM php:7.4.10-fpm-alpine
 
-RUN apk update && apk upgrade \ 
-    && apk add --no-cache php7-pear php7-dev gcc musl-dev make icu-dev
-
 ARG COMPOSER_VERSION
-ENV COMPOSER_HOME=/application/.composer
+ENV COMPOSER_HOME=/application/.composer  
 ENV COMPOSER_MEMORY_LIMIT=-1
 
-RUN curl -sS https://getcomposer.org/installer | php -- --version=${COMPOSER_VERSION} --install-dir=/usr/local/bin --filename=composer
-
-RUN docker-php-ext-configure intl
-RUN docker-php-ext-install mysqli pdo pdo_mysql json intl
-RUN pecl install -o -f redis
-RUN docker-php-ext-enable redis
+RUN apk update && apk upgrade \ 
+    && apk add --no-cache php7-pear php7-dev icu-dev\
+    && apk add --no-cache --virtual .build-deps gcc musl-dev make   \ 
+    && curl -sS https://getcomposer.org/installer | php -- --version=${COMPOSER_VERSION} --install-dir=/usr/local/bin --filename=composer \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install mysqli pdo pdo_mysql json intl \
+    && docker-php-ext-enable intl \
+    && pecl install -o -f redis \
+    && docker-php-ext-enable redis \
+    && apk del .build-deps
