@@ -33,7 +33,7 @@ jobs:
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
 
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-          
+
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
 
