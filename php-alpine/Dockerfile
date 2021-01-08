@@ -1,4 +1,4 @@
-FROM php:8.0.0-fpm-alpine
+FROM php:8.0.1-fpm-alpine
 
 ARG COMPOSER_VERSION
 ENV COMPOSER_HOME=/application/.composer
